@@ -5,7 +5,7 @@
         <ContentTargetFolders>.</ContentTargetFolders>
         <Product>UmbracoKeyValuePropertyEditor</Product>
         <PackageId>UmbracoKeyValuePropertyEditor</PackageId>
-        <Title>Umbraco.KeyValuePropertyEditor property editor for Umbraco</Title>
+        <Title>UmbracoKeyValuePropertyEditor property editor for Umbraco</Title>
         <Description>This installs a custom property editor that can be used to configure external data to Umbraco nodes</Description>
         <PackageTags>umbraco plugin package</PackageTags>
         <RootNamespace>UmbracoKeyValuePropertyEditor</RootNamespace>
