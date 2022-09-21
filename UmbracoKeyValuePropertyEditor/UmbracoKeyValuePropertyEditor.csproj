@@ -3,21 +3,21 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ContentTargetFolders>.</ContentTargetFolders>
-        <Product>Umbraco.KeyValuePropertyEditor</Product>
+        <Product>UmbracoKeyValuePropertyEditor</Product>
         <PackageId>UmbracoKeyValuePropertyEditor</PackageId>
         <Title>Umbraco.KeyValuePropertyEditor property editor for Umbraco</Title>
         <Description>This installs a custom property editor that can be used to configure external data to Umbraco nodes</Description>
         <PackageTags>umbraco plugin package</PackageTags>
-        <RootNamespace>Umbraco.KeyValuePropertyEditor</RootNamespace>
-        <Authors>Tony Meyn</Authors>
-        <PackageProjectUrl>https://github.com/nul800sebastiaan/Umbraco.KeyValuePropertyEditor</PackageProjectUrl>
+        <RootNamespace>UmbracoKeyValuePropertyEditor</RootNamespace>
+        <Authors>GlobalPay</Authors>
+        <PackageProjectUrl>https://github.com/prmeyn/UmbracoKeyValuePropertyEditor</PackageProjectUrl>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <LangVersion>latestmajor</LangVersion>
     </PropertyGroup>
 	
     <ItemGroup>
-        <Content Include="App_Plugins\Umbraco.KeyValuePropertyEditor\**\*.*">
+        <Content Include="App_Plugins\UmbracoKeyValuePropertyEditor\**\*.*">
             <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
             <CopyToPublishDirectory>Always</CopyToPublishDirectory>
         </Content>
