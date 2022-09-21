@@ -3,7 +3,7 @@ using System.Linq;
 using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Cms.Web.BackOffice.Filters;
 
-namespace Umbraco.KeyValuePropertyEditor
+namespace UmbracoKeyValuePropertyEditor
 {
 	[ValidateAngularAntiForgeryToken]
 	public abstract class KeyValueUmbracoPropertyEditorController : UmbracoAuthorizedJsonController

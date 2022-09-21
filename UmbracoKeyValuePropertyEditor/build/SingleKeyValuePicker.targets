@@ -1,0 +1,25 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<KeyValuePropertyEditorContentFilesPath>$(MSBuildThisFileDirectory)..\App_Plugins\SingleKeyValuePicker\**\*.*</KeyValuePropertyEditorContentFilesPath>
+	</PropertyGroup>
+
+	<Target Name="CopyKeyValuePropertyEditorAssets" BeforeTargets="Build">
+		<ItemGroup>
+			<KeyValuePropertyEditorContentFiles Include="$(KeyValuePropertyEditorContentFilesPath)" />
+		</ItemGroup>
+		<Message Text="Copying SingleKeyValuePicker files: $(KeyValuePropertyEditorContentFilesPath) - #@(KeyValuePropertyEditorContentFiles->Count()) files"  Importance="high" />
+		<Copy
+			SourceFiles="@(KeyValuePropertyEditorContentFiles)"
+			DestinationFiles="@(KeyValuePropertyEditorContentFiles->'$(MSBuildProjectDirectory)\App_Plugins\SingleKeyValuePicker\%(RecursiveDir)%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true" />
+
+	</Target>
+
+	<Target Name="ClearKeyValuePropertyEditorAssets" BeforeTargets="Clean">
+		<ItemGroup>
+			<SingleKeyValuePickerEditorDir Include="$(MSBuildProjectDirectory)\App_Plugins\SingleKeyValuePicker\" />
+		</ItemGroup>
+		<Message Text="Clear old SingleKeyValuePicker data"  Importance="high" />
+		<RemoveDir Directories="@(SingleKeyValuePickerEditorDir)"  />
+	</Target>
+</Project>
