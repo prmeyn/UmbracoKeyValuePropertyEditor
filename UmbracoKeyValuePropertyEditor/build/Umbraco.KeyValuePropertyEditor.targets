@@ -1,0 +1,25 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<KeyValuePropertyEditorContentFilesPath>$(MSBuildThisFileDirectory)..\App_Plugins\Umbraco.KeyValuePropertyEditor\**\*.*</KeyValuePropertyEditorContentFilesPath>
+	</PropertyGroup>
+
+	<Target Name="CopyKeyValuePropertyEditorAssets" BeforeTargets="Build">
+		<ItemGroup>
+			<KeyValuePropertyEditorContentFiles Include="$(KeyValuePropertyEditorContentFilesPath)" />
+		</ItemGroup>
+		<Message Text="Copying Umbraco.KeyValuePropertyEditor files: $(KeyValuePropertyEditorContentFilesPath) - #@(KeyValuePropertyEditorContentFiles->Count()) files"  Importance="high" />
+		<Copy
+			SourceFiles="@(KeyValuePropertyEditorContentFiles)"
+			DestinationFiles="@(KeyValuePropertyEditorContentFiles->'$(MSBuildProjectDirectory)\App_Plugins\Umbraco.KeyValuePropertyEditor\%(RecursiveDir)%(Filename)%(Extension)')"
+			SkipUnchangedFiles="true" />
+
+	</Target>
+
+	<Target Name="ClearKeyValuePropertyEditorAssets" BeforeTargets="Clean">
+		<ItemGroup>
+			<KeyValuePropertyEditorDir Include="$(MSBuildProjectDirectory)\App_Plugins\Umbraco.KeyValuePropertyEditor\" />
+		</ItemGroup>
+		<Message Text="Clear old Umbraco.KeyValuePropertyEditor data"  Importance="high" />
+		<RemoveDir Directories="@(KeyValuePropertyEditorDir)"  />
+	</Target>
+</Project>

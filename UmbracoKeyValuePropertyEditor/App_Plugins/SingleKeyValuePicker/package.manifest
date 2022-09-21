@@ -1,0 +1,42 @@
+{
+	propertyEditors: [
+		{
+			alias: "SingleKeyValuePicker",
+			name: "SingleKeyValuePicker",
+			icon: "icon-code",
+			group: "Rich Content",
+			editor: {
+				view: "~/App_Plugins/SingleKeyValuePicker/index.html",
+				valueType: "JSON"
+			},
+			prevalues: {
+				fields: [
+					{
+						label: "API Prefix",
+						description: "Endpoint to the controller that inherits from the KeyValueUmbracoPropertyEditorController abstract class",
+						key: "keyValueUmbracoPropertyEditorEndPoint",
+						view: "textstring"
+					},
+					{
+						label: "Unique Filter",
+						description: "Each sibling node can only pick a unique value",
+						key: "uniqueFilter",
+						view: "boolean"
+					},
+					{
+						label: "Allow No Value",
+						description: "Allow Null as a valid option",
+						key: "allowNull",
+						view: "boolean"
+					}
+				]
+			}
+		}
+	],
+	javascript: [
+		'~/App_Plugins/SingleKeyValuePicker/index.js'
+	],
+	css: [
+		'~/App_Plugins/SingleKeyValuePicker/style.css'
+	]
+}
