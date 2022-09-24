@@ -19,6 +19,6 @@ namespace UmbracoKeyValuePropertyEditor
 
 		public Type GetPropertyValueType(IPublishedPropertyType propertyType) => typeof(string);
 
-		public bool? IsValue(object value, PropertyValueLevel level) => string.IsNullOrWhiteSpace(value as string);
+		public bool? IsValue(object value, PropertyValueLevel level) => !string.IsNullOrWhiteSpace(value as string);
 	}
 }
