@@ -17,9 +17,6 @@ namespace UmbracoKeyValuePropertyEditor
 		public object ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object source, bool preview) => source as string;
 
 		public PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType) => PropertyCacheLevel.Element;
-
-		public Type GetPropertyValueType(IPublishedPropertyType propertyType) => typeof(string);
-
 		public bool? IsValue(object value, PropertyValueLevel level) => !string.IsNullOrWhiteSpace(value as string);
 
 		Type IPropertyValueConverter.GetPropertyValueType(IPublishedPropertyType propertyType) => typeof(string);
