@@ -32,13 +32,14 @@ namespace ExternalApiPickerDemo.Core.Demo
             _localizationService = localizationService;
         }
 
-        public override IOrderedEnumerable<KeyValuePair<string, string>> GetKeyValueList(string nodeIdOrGuid, string propertyAlias, int uniqueFilter = 0, int allowNull = 0)
+        public override IOrderedEnumerable<KeyValuePair<string, string>> GetKeyValueList(string nodeIdOrGuid, string propertyAlias, bool uniqueFilter, bool allowNull)
         {
-            try
+             try
             {
                 string[] usedUpLanguageCodes = Array.Empty<string>();
                 try
                 {
+                    // Current node block
                     IPublishedContent currentNode = null;
                     if (int.TryParse(nodeIdOrGuid, out int nodeId) && nodeId > 0)
                     {
@@ -48,27 +49,23 @@ namespace ExternalApiPickerDemo.Core.Demo
                     {
                         currentNode = _umbracoHelper.Content(Key);
                     }
-
-                    if (currentNode != null)
+                    
+                    // Parent node block
+                    IPublishedContent parentNode = null;
+                    if (int.TryParse(parentNodeIdOrGuid, out int parentNodeId) && parentNodeId > 0)
                     {
-                        var parent = currentNode?.Parent;
-                        if (parent == null)
-                        {
-                            usedUpLanguageCodes = GetValuesOfChildrensProperty(currentNode, propertyAlias, nodeId).ToArray();
-                        }
-                        else
-                        {
-                            usedUpLanguageCodes = GetValuesOfChildrensProperty(parent, propertyAlias, nodeId).Union(GetValuesOfChildrensProperty(currentNode, propertyAlias, nodeId)).ToArray();
-                        }
+                        parentNode = _umbracoHelper.Content(parentNodeId);
                     }
-                    else
+                    else if (Guid.TryParse(parentNodeIdOrGuid, out Guid Key))
                     {
-                        usedUpLanguageCodes = GetValuesOfChildrensProperty(null, propertyAlias, nodeId).ToArray();
+                        parentNode = _umbracoHelper.Content(Key);
                     }
+                    usedUpLanguageCodes = GetValuesOfChildrensProperty(parentNode, propertyAlias, currentNode?.Id).ToArray();
                 }
-                catch { uniqueFilter = 0; }
+                catch { uniqueFilter = false; }
+                
                 LanguageDTO[] languageList = null;
-                if (uniqueFilter == 1)
+                if (uniqueFilter)
                 {
                     languageList = (new LanguageApiWrapper(_localizationService)).AllLanguages.Where(c => !usedUpLanguageCodes.Contains(c.ISOCode.ToLowerInvariant())).ToArray();
                 }
@@ -76,11 +73,11 @@ namespace ExternalApiPickerDemo.Core.Demo
                 {
                     languageList = (new LanguageApiWrapper(_localizationService)).AllLanguages.ToArray();
                 }
-                if (allowNull == 1)
+                if (allowNull)
                 {
-                    languageList = languageList.Prepend(new LanguageDTO { ISOCode = "", EnglishName = "NONE" }).ToArray();
+                    languageList = languageList.Prepend(new LanguageDTO { ISOCode = "", EnglishName = "" }).ToArray();
                 }
-                return languageList.ToDictionary(c => c.ISOCode.ToLowerInvariant(), c => c.EnglishName).OrderBy(v => v.Key);
+                return languageList.ToDictionary(c => c.ISOCode.ToLowerInvariant(), c => "").OrderBy(v => v.Key);
             }
             catch
             {
